@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>RouteSense AI — Dashboard Overview</title>
+<meta name="description" content="Smart Logistics & Accessibility dashboard for the North Eastern Region (NER)." />
+<link rel="stylesheet" href="css/styles.css" />
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <i data-lucide="map-pin"></i>
+      </span>
+      <span class="brand-text">
+        <strong>RouteSense AI</strong>
+        <small>Smart Logistics &amp; Accessibility</small>
+      </span>
+    </div>
+
+    <nav class="nav" aria-label="Primary">
+      <a class="nav-item is-active" href="#dashboard" data-route="dashboard">
+        <i data-lucide="layout-dashboard"></i> Dashboard
+      </a>
+      <a class="nav-item" href="#live-map" data-route="live-map">
+        <i data-lucide="map"></i> Live Map
+      </a>
+      <a class="nav-item" href="#route-planner" data-route="route-planner">
+        <i data-lucide="route"></i> Route Planner
+      </a>
+      <a class="nav-item" href="#ai-risk" data-route="ai-risk">
+        <i data-lucide="triangle-alert"></i> AI Risk Analysis
+      </a>
+      <a class="nav-item" href="#field-reporting" data-route="field-reporting">
+        <i data-lucide="clipboard-list"></i> Field Reporting
+      </a>
+      <a class="nav-item" href="#alerts" data-route="alerts">
+        <i data-lucide="bell-ring"></i> Alerts &amp; Monitoring
+      </a>
+      <a class="nav-item" href="#vehicles" data-route="vehicles">
+        <i data-lucide="truck"></i> Vehicles
+      </a>
+      <a class="nav-item" href="#reports" data-route="reports">
+        <i data-lucide="file-text"></i> Reports
+      </a>
+      <a class="nav-item" href="#settings" data-route="settings">
+        <i data-lucide="settings"></i> Settings
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="status-card">
+        <div class="status-card-head">
+          <span>System Status</span>
+          <span class="pill pill-online" id="system-status-pill">Online</span>
+        </div>
+        <ul class="status-list" id="system-status-list">
+          <!-- populated by js/data.js -->
+        </ul>
+      </div>
+
+      <button class="help-btn" type="button">
+        <i data-lucide="headphones"></i> Help &amp; Support
+      </button>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <div class="main">
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <button class="icon-btn only-mobile" id="menu-toggle" aria-label="Toggle navigation" aria-controls="sidebar" aria-expanded="false">
+        <i data-lucide="menu"></i>
+      </button>
+
+      <label class="search" for="global-search">
+        <i data-lucide="search"></i>
+        <input id="global-search" type="search" placeholder="Search (e.g., route, location, report...)" />
+      </label>
+
+      <div class="topbar-right">
+        <div class="weather-chip" id="topbar-weather">
+          <i data-lucide="cloud-drizzle"></i>
+          <span><strong id="topbar-temp">26°C</strong><small id="topbar-city">Guwahati</small></span>
+        </div>
+
+        <button class="icon-btn" aria-label="Notifications">
+          <i data-lucide="bell"></i>
+          <span class="badge" id="notif-count">5</span>
+        </button>
+
+        <button class="profile-btn" aria-haspopup="true" aria-expanded="false" id="profile-btn">
+          <span class="avatar" aria-hidden="true"><i data-lucide="user-round"></i></span>
+          <span class="profile-text">
+            <strong id="profile-name">Admin</strong>
+            <small id="profile-role">Administrator</small>
+          </span>
+          <i data-lucide="chevron-down"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Page content -->
+    <main class="content" id="main-content">
+
+      <div class="page-head">
+        <h1>Dashboard Overview</h1>
+        <p>Real-time overview of routes, risks and logistics in North Eastern Region (NER)</p>
+      </div>
+
+      <!-- KPI cards -->
+      <section class="kpi-grid" id="kpi-grid" aria-label="Key metrics">
+        <!-- populated by js/render.js from js/data.js -->
+      </section>
+
+      <!-- Row: Risk summary / Active alerts / Live map -->
+      <section class="grid-3">
+        <article class="card" id="card-risk-summary">
+          <div class="card-head">
+            <h2>Risk Summary <i data-lucide="info" class="info-ic" title="Distribution of analyzed routes by risk band"></i></h2>
+          </div>
+          <div class="risk-summary-body">
+            <div class="donut-wrap">
+              <canvas id="risk-donut" width="180" height="180" role="img" aria-label="Donut chart of route risk distribution"></canvas>
+              <div class="donut-center">
+                <small>Total Routes</small>
+                <strong id="donut-total">24</strong>
+              </div>
+            </div>
+            <ul class="risk-legend" id="risk-legend">
+              <!-- populated by js -->
+            </ul>
+          </div>
+          <a class="card-link" href="#ai-risk" data-route="ai-risk">View full risk analysis <i data-lucide="arrow-right"></i></a>
+        </article>
+
+        <article class="card" id="card-active-alerts">
+          <div class="card-head">
+            <h2>Active Alerts</h2>
+            <a class="card-head-link" href="#alerts" data-route="alerts">View all <i data-lucide="arrow-right"></i></a>
+          </div>
+          <ul class="alert-list" id="alert-list">
+            <!-- populated by js -->
+          </ul>
+        </article>
+
+        <article class="card card-map" id="card-live-map">
+          <div class="card-head">
+            <h2>Live Map Preview</h2>
+            <a class="card-head-link" href="#live-map" data-route="live-map">View full map <i data-lucide="arrow-right"></i></a>
+          </div>
+          <div class="map-preview" id="map-preview">
+            <div class="map-placeholder" id="map-placeholder">
+              <p>Map integration placeholder</p>
+              <small>Wire up Leaflet / Mapbox / Google Maps here using route &amp; vehicle data.</small>
+            </div>
+            <ul class="map-legend">
+              <li><span class="dot dot-safe"></span> Safe</li>
+              <li><span class="dot dot-moderate"></span> Moderate</li>
+              <li><span class="dot dot-high"></span> High Risk</li>
+              <li><span class="dot dot-blocked"></span> Blocked</li>
+            </ul>
+          </div>
+        </article>
+      </section>
+
+      <!-- Row: Active vehicles / Weather / Recent field reports -->
+      <section class="grid-3">
+        <article class="card" id="card-active-vehicles">
+          <div class="card-head">
+            <h2>Active Vehicles</h2>
+            <a class="card-head-link" href="#vehicles" data-route="vehicles">View all <i data-lucide="arrow-right"></i></a>
+          </div>
+          <div class="vehicle-stats" id="vehicle-stats">
+            <!-- populated by js -->
+          </div>
+          <a class="card-link" href="#live-map" data-route="live-map">Track on live map <i data-lucide="arrow-right"></i></a>
+        </article>
+
+        <article class="card" id="card-weather">
+          <div class="card-head">
+            <h2>Weather Overview</h2>
+            <a class="card-head-link" href="#" id="weather-forecast-link">View forecast <i data-lucide="arrow-right"></i></a>
+          </div>
+          <div class="weather-now" id="weather-now">
+            <!-- populated by js -->
+          </div>
+          <ul class="weather-days" id="weather-days">
+            <!-- populated by js -->
+          </ul>
+        </article>
+
+        <article class="card" id="card-field-reports">
+          <div class="card-head">
+            <h2>Recent Field Reports</h2>
+            <a class="card-head-link" href="#field-reporting" data-route="field-reporting">View all <i data-lucide="arrow-right"></i></a>
+          </div>
+          <ul class="report-list" id="report-list">
+            <!-- populated by js -->
+          </ul>
+        </article>
+      </section>
+
+      <!-- Footer banner -->
+      <section class="ai-banner">
+        <span class="ai-banner-icon" aria-hidden="true"><i data-lucide="brain-circuit"></i></span>
+        <p>
+          RouteSense AI is continuously analyzing data from multiple sources to provide
+          <strong>safer routes, real-time alerts and better accessibility</strong> across NER.
+        </p>
+        <a class="btn-primary" href="#route-planner" data-route="route-planner">
+          Explore Route Planner <i data-lucide="arrow-right"></i>
+        </a>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/render.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
